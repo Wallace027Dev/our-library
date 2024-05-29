@@ -58,14 +58,14 @@ const Books: IBook[] = [
   },
 ];
 
+const normalizeString = (str: string) => {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+};  
 
 const Home: React.FC<IHomeProp> = ({ searchBook }) => {
   const [books, setBooks] = useState<IBook[]>([]);
   const [filteredBooks, setFilteredBooks] = useState<IBook[]>([]);
-
-  const normalizeString = (str: string) => {
-    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  };  
+  const [selectedCategory, setSelectedCategory] = useState<string>('Todos os gêneros');
 
   useEffect(() => {
     setBooks(Books);
@@ -73,12 +73,14 @@ const Home: React.FC<IHomeProp> = ({ searchBook }) => {
 
   useEffect(() => {
     const normalizedSearchBook = normalizeString(searchBook)
-    const filterBooks = books.filter((book) =>
-      normalizeString(book.title).includes(normalizedSearchBook)
-    );
+    const filterBooks = books.filter((book) =>{
+      const titleMatch = normalizeString(book.title).includes(normalizedSearchBook)
+      const categoryMatch = selectedCategory === 'Todos os gêneros' || book.categories.some(category => normalizeString(category.title) === normalizeString(selectedCategory));
+      return titleMatch && categoryMatch;
+    });
       setFilteredBooks(filterBooks);
-  }, [books, searchBook]);
-  
+    }, [searchBook, selectedCategory, books]);
+
 /*useEffect(() => {
     axios.get('http://localhost:3001/books')
       .then((response) => {
@@ -95,16 +97,16 @@ const Home: React.FC<IHomeProp> = ({ searchBook }) => {
     <Container>
       <aside>
         <h1>Livros por gênero</h1>
-        <button type='button' onClick={() => console.log("Todos os gêneros")}>Todos os gêneros</button>
-        <button type='button' onClick={() => console.log("Ficção")}>Ficção</button>
-        <button type='button' onClick={() => console.log("Literatura")}>Literatura</button>
-        <button type='button' onClick={() => console.log("Juvenil")}>Juvenil</button>
-        <button type='button' onClick={() => console.log("Fantasia")}>Fantasia</button>
-        <button type='button' onClick={() => console.log("Terror")}>Terror</button>
-        <button type='button' onClick={() => console.log("Romance")}>Romance</button>
-        <button type='button' onClick={() => console.log("Drama")}>Drama</button>
-        <button type='button' onClick={() => console.log("Crônica")}>Crônica</button>
-        <button type='button' onClick={() => console.log("Poema")}>Poema</button>
+        <button type='button' onClick={() => setSelectedCategory('Todos os gêneros')}>Todos os gêneros</button>
+        <button type='button' onClick={() => setSelectedCategory('Ficção')}>Ficção</button>
+        <button type='button' onClick={() => setSelectedCategory('Literatura')}>Literatura</button>
+        <button type='button' onClick={() => setSelectedCategory('Juvenil')}>Juvenil</button>
+        <button type='button' onClick={() => setSelectedCategory('Fantasia')}>Fantasia</button>
+        <button type='button' onClick={() => setSelectedCategory('Terror')}>Terror</button>
+        <button type='button' onClick={() => setSelectedCategory('Romance')}>Romance</button>
+        <button type='button' onClick={() => setSelectedCategory('Drama')}>Drama</button>
+        <button type='button' onClick={() => setSelectedCategory('Crônica')}>Crônica</button>
+        <button type='button' onClick={() => setSelectedCategory('Poema')}>Poema</button>
       </aside>
 
       <section>
