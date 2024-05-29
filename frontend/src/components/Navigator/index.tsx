@@ -1,12 +1,18 @@
 import React, { useState, ChangeEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Container, Nav, SearchSection, SearchBook } from './styles';
 import ouLibrary from '../../assets/ourlibrary.svg';
 import imageHero from '../../assets/imagehero.png';
 import searchIcon from '../../assets/search.svg';
 
-const Navigator: React.FC<{ onDataChange: (data: string) => void }> = ({ onDataChange }) => {
+const Navigator: React.FC<{
+  onDataChange: (data: string) => void }> = (
+    { onDataChange }
+  ) => {
   const [searchTitle, setSearchTitle] = useState<string>('');
+
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   const handleSearchTitle = (e: ChangeEvent<HTMLInputElement>) => {
     const title = e.target.value;
@@ -22,7 +28,6 @@ const Navigator: React.FC<{ onDataChange: (data: string) => void }> = ({ onDataC
         <img src={ouLibrary} alt="OurLibrary logo" />
         <div>
           <Link to='/'>Home</Link>
-          <Link to='/books'>Livros</Link>
           <Link to='/users'>Usuários</Link>
         </div>
       </Nav>
@@ -32,7 +37,7 @@ const Navigator: React.FC<{ onDataChange: (data: string) => void }> = ({ onDataC
         <p>Encontre seu livro favorito e adicione-o à sua lista de desejos</p>
       </SearchSection>
 
-      <SearchBook>
+      {isHomePage && <SearchBook>
         <img src={searchIcon} alt="Search icon" />
         <input
           type="text"
@@ -40,7 +45,7 @@ const Navigator: React.FC<{ onDataChange: (data: string) => void }> = ({ onDataC
           value={searchTitle}
           onChange={handleSearchTitle}
         />
-      </SearchBook>
+      </SearchBook>}
     </Container>
   );
 };

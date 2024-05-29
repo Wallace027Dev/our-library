@@ -21,10 +21,14 @@ export const Nav = styled.nav`
   margin-bottom: 90px;
 
   a {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 500;
     text-decoration: none;
     color: #fff;
+  }
+
+  a:hover {
+    text-decoration: overline;
   }
 
   a:not(:first-child) {
@@ -60,7 +64,7 @@ export const SearchBook = styled.div`
     width: 100%;
     height: 100%;
     font-size: 16px;
-    outline: none; /* Changed from input:focus to here */
+    outline: none;
   }
 
   input:focus {

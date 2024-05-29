@@ -1,62 +1,83 @@
 import React, { useEffect, useState } from 'react';
-import { Container, BookComponent, CategoryLabel } from './styles';
-import { Books, IBook } from '../../data/books';
-import { Genders } from '../../data/genders';
+import axios from 'axios';
+
+import normalizeString from '../../utils/NormalizeString';
+
+import {
+  Container, ResultComponent, SelectLabel
+} from '../../styles/BookPages';
+import IBook from '../../interfaces/IBook';
+import ICategory from '../../interfaces/ICategory';
 
 interface IHomeProp {
-  searchBook: string;
+  search: string;
 }
 
-const normalizeString = (str: string) => {
-  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-};
-
-const Home: React.FC<IHomeProp> = ({ searchBook }) => {
+const Home: React.FC<IHomeProp> = ({ search }) => {
   const [books, setBooks] = useState<IBook[]>([]);
+  const [categories, setCategories] = useState<ICategory[]>([]);
   const [filteredBooks, setFilteredBooks] = useState<IBook[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('Todos os gêneros');
 
   useEffect(() => {
-    setBooks(Books);
+    axios.get('http://localhost:3001/books')
+    .then(response => {
+      setBooks(response.data)
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }, []);
 
   useEffect(() => {
-    const normalizedSearchBook = normalizeString(searchBook);
+    axios.get('http://localhost:3001/categories')
+    .then(response => {
+      setCategories(response.data)
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }, []);
+
+  useEffect(() => {
+    const normalizedSearch = normalizeString(search);
     const filtered = books.filter((book) => {
-      const titleMatch = normalizeString(book.title).includes(normalizedSearchBook);
+      const titleMatch = normalizeString(book.title).includes(normalizedSearch);
+
       const categoryMatch = selectedCategory === 'Todos os gêneros' ||
         book.categories.some(category => normalizeString(category.title) === normalizeString(selectedCategory));
+
       return titleMatch && categoryMatch;
     });
     setFilteredBooks(filtered);
-  }, [searchBook, selectedCategory, books]);
+  }, [search, selectedCategory, books]);
 
   return (
     <Container>
       <aside>
         <h1>Livros por gênero</h1>
-        {Genders.map((gender) => (
-          <CategoryLabel
-            key={gender._id}
-            onClick={() => setSelectedCategory(gender.title)}
-            isSelected={selectedCategory === gender.title}
+        {categories.map((category) => (
+          <SelectLabel
+            key={category._id}
+            onClick={() => setSelectedCategory(category.title)}
+            isSelected={selectedCategory === category.title}
           >
-            {gender.title}
-          </CategoryLabel>
+            {category.title}
+          </SelectLabel>
         ))}
       </aside>
       <section>
         <h1>Livros disponíveis</h1>
         <div>
           {filteredBooks.map((book) => (
-            <BookComponent key={book._id}>
-              <img src={book.imagePath} alt={book.title} />
+            <ResultComponent key={book._id}>
+              <img src={`http://localhost:3001/uploads/${book.imagePath}`} alt={book.title} />
               <div>
                 <h2>{book.title}</h2>
                 <h3>{book.author}</h3>
                 <p>{book.categories.map(category => category.title).join(', ')}</p>
               </div>
-            </BookComponent>
+            </ResultComponent>
           ))}
         </div>
       </section>

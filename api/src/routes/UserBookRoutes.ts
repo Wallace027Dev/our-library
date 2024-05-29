@@ -8,12 +8,12 @@ UserBooksRoutes.get('/user/books', UserBookController.listAll, PaginateUserBooks
 
 UserBooksRoutes.get('/user/books/search/', UserBookController.searchByQuery, PaginateUserBooks);
 
-UserBooksRoutes.get('/userBooks/:id', UserBookController.searchById);
+UserBooksRoutes.get('/user/:id/books', UserBookController.searchById);
 
 UserBooksRoutes.post('/user/books', UserBookController.store);
 
-UserBooksRoutes.put('/user/books/:id', UserBookController.update);
+UserBooksRoutes.put('/user/:id/books', UserBookController.update);
 
-UserBooksRoutes.delete('/user/books/:id', UserBookController.delete);
+UserBooksRoutes.delete('/user/:id/books', UserBookController.delete);
 
 export default UserBooksRoutes;

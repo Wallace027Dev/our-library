@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
-export const BookComponent = styled.div`
+export const ResultComponent = styled.div`
   display: flex;
   min-height: 225px;
-  max-width: 460px;
+  max-width: 420px;
+  width: 420px;
   flex-grow: 1;
   background: #fff;
   border: 1px solid #ddd;
@@ -46,13 +47,6 @@ export const BookComponent = styled.div`
 `;
 
 export const Container = styled.main`
-  background: #f5f6f8;
-  width: 100vw;
-  min-height: 40vh;
-  padding: 90px 0 0 85px;
-  display: flex;
-  flex-direction: row;
-
   aside {
     margin-right: 60px;
     width: 300px;
@@ -95,14 +89,14 @@ export const Container = styled.main`
       flex-wrap: wrap;
       margin: -10px;
 
-      ${BookComponent} {
+      ${ResultComponent} {
         margin: 10px;
       }
     }
   }
 `;
 
-export const CategoryLabel = styled.p<{ isSelected: boolean }>`
+export const SelectLabel = styled.p<{ isSelected: boolean }>`
   font-size: 24px;
   margin: 12px 0;
   cursor: pointer;

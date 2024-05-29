@@ -19,18 +19,16 @@ class UserController {
 
   static async searchById  (req: Request, res: Response, next: NextFunction) {
     try {
-      const userBookId = req.params.id;
+      const userId = req.params.id;
 
       const userBook = await UserBooks
-        .findById(userBookId)
+        .find({ userId })
         .populate({
-          path: 'userId',
+          path: 'bookId',
           populate: {
-            path: 'wishlist',
-            model: 'Book'
+              path: 'categories'
           }
-        })
-        .populate('bookId');
+      });
 
       res.status(200).json(userBook);
     } catch (error) {
