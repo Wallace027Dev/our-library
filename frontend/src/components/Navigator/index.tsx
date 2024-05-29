@@ -1,33 +1,27 @@
+import React, { useState, ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
+import { Container, Nav, SearchSection, SearchBook } from './styles';
+import ouLibrary from '../../assets/ourlibrary.svg';
+import imageHero from '../../assets/imagehero.png';
+import searchIcon from '../../assets/search.svg';
 
-import { Container, Nav, SearchSection, SearchBook } from './styles'
+const Navigator: React.FC<{ onDataChange: (data: string) => void }> = ({ onDataChange }) => {
+  const [searchTitle, setSearchTitle] = useState<string>('');
 
-import oulibrary from '../../assets/ourlibrary.svg'
-import imagehero from '../../assets/imagehero.png'
-import search from '../../assets/search.svg'
-import React, { useState } from 'react';
-
-  interface ITitleSearch {
-    onDataChange: (data: string) => void;
-  }
-
-  const Navigator: React.FC<ITitleSearch> = ({ onDataChange }) => {
-    const [searchTitle, setSearchTitle] = useState<string>('');
-
-    function handleSearchTitle(e: React.ChangeEvent<HTMLInputElement>) {
-      setSearchTitle(e.target.value);
-      onDataChange(e.target.value);
-    }
+  const handleSearchTitle = (e: ChangeEvent<HTMLInputElement>) => {
+    const title = e.target.value;
+    setSearchTitle(title);
+    onDataChange(title);
+  };
 
   return (
     <Container>
-      <img className='image-hero' src={imagehero} alt="Girl holding a book" />
+      <img className='image-hero' src={imageHero} alt="Girl holding a book" />
 
       <Nav>
-        <img src={oulibrary} alt="OurLibrary logo" />
-
+        <img src={ouLibrary} alt="OurLibrary logo" />
         <div>
-          <Link to='/home'>Home</Link>
+          <Link to='/'>Home</Link>
           <Link to='/books'>Livros</Link>
           <Link to='/users'>Usuários</Link>
         </div>
@@ -39,7 +33,7 @@ import React, { useState } from 'react';
       </SearchSection>
 
       <SearchBook>
-        <img src={search} alt="Search icon" />
+        <img src={searchIcon} alt="Search icon" />
         <input
           type="text"
           placeholder='Pesquise um livro'
@@ -48,7 +42,7 @@ import React, { useState } from 'react';
         />
       </SearchBook>
     </Container>
-  )
-}
+  );
+};
 
 export default Navigator;

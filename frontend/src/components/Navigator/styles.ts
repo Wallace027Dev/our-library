@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.header`
-  margin: 44px 140px;
+  margin: 44px 85px;
   height: 500px;
 
   img.image-hero {
@@ -60,10 +60,10 @@ export const SearchBook = styled.div`
     width: 100%;
     height: 100%;
     font-size: 16px;
+    outline: none; /* Changed from input:focus to here */
   }
 
   input:focus {
     color: #000;
-    outline: none;
   }
-  `;
+`;

@@ -82,7 +82,7 @@ export const Container = styled.main`
     width: 100%;
     background: #fff;
     min-height: 30vh;
-    padding: 42px 75px;
+    padding: 42px 85px;
 
     h1 {
       font-size: 40px;
