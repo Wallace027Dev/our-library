@@ -3,13 +3,21 @@ import Router from '../../Router';
 
 import Navigator from '../Navigator';
 import Container from './styles';
+import { useState } from 'react';
 
-function App() {
+
+const App: React.FC = () => {
+  const [data, setData] = useState<string>('');
+  
+  function handleDataChange(newData: string) {
+    setData(newData);
+  }
+
   return (
     <Container>
       <BrowserRouter>
-        <Navigator />
-        <Router />
+        <Navigator onDataChange={handleDataChange} />
+        <Router data={data} />
       </BrowserRouter>
     </Container>
   );

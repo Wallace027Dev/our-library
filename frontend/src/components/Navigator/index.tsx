@@ -5,8 +5,20 @@ import { Container, Nav, SearchSection, SearchBook } from './styles'
 import oulibrary from '../../assets/ourlibrary.svg'
 import imagehero from '../../assets/imagehero.png'
 import search from '../../assets/search.svg'
+import React, { useState } from 'react';
 
-function Navigator() {
+  interface ITitleSearch {
+    onDataChange: (data: string) => void;
+  }
+
+  const Navigator: React.FC<ITitleSearch> = ({ onDataChange }) => {
+    const [searchTitle, setSearchTitle] = useState<string>('');
+
+    function handleSearchTitle(e: React.ChangeEvent<HTMLInputElement>) {
+      setSearchTitle(e.target.value);
+      onDataChange(e.target.value);
+    }
+
   return (
     <Container>
       <img className='image-hero' src={imagehero} alt="Girl holding a book" />
@@ -28,7 +40,12 @@ function Navigator() {
 
       <SearchBook>
         <img src={search} alt="Search icon" />
-        <input type="text" placeholder='Pesquise um livro' />
+        <input
+          type="text"
+          placeholder='Pesquise um livro'
+          value={searchTitle}
+          onChange={handleSearchTitle}
+        />
       </SearchBook>
     </Container>
   )
