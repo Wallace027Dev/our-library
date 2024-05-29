@@ -4,16 +4,16 @@ import PaginateUserBooks from '../middlewares/PaginateUserBooks';
 
 const UserBooksRoutes = Router();
 
-UserBooksRoutes.get('/userBooks', UserBookController.listAll, PaginateUserBooks);
+UserBooksRoutes.get('/user/books', UserBookController.listAll, PaginateUserBooks);
 
-UserBooksRoutes.get('/userBooks/search/', UserBookController.searchByQuery, PaginateUserBooks);
+UserBooksRoutes.get('/user/books/search/', UserBookController.searchByQuery, PaginateUserBooks);
 
 UserBooksRoutes.get('/userBooks/:id', UserBookController.searchById);
 
-UserBooksRoutes.post('/userBooks', UserBookController.store);
+UserBooksRoutes.post('/user/books', UserBookController.store);
 
-UserBooksRoutes.put('/userBooks/:id', UserBookController.update);
+UserBooksRoutes.put('/user/books/:id', UserBookController.update);
 
-UserBooksRoutes.delete('/userBooks/:id', UserBookController.delete);
+UserBooksRoutes.delete('/user/books/:id', UserBookController.delete);
 
 export default UserBooksRoutes;
