@@ -10,6 +10,7 @@ import IUserBook from "../../interfaces/IUserBook";
 
 const UserPage = () => {
   const [users, setUsers] = useState<IUser[]>([]);
+  const [userName, setUserName] = useState('');
   const [userBooks, setUserBooks] = useState<IUserBook[]>([]);
   const [selectedUser, setSelectedUser] = useState<string>('');
 
@@ -44,7 +45,10 @@ const UserPage = () => {
         {users.map((user) => (
           <SelectLabel
             key={user._id}
-            onClick={() => setSelectedUser(user._id)}
+            onClick={ () => {
+              setSelectedUser(user._id);
+              setUserName(user.name);
+            }}
             isSelected={selectedUser === user._id}
           >
             {user.name}
@@ -52,7 +56,10 @@ const UserPage = () => {
         ))}
       </aside>
       <section>
-      <h1>Livros disponíveis</h1>
+      {selectedUser ?
+        <h1>Livros de {userName}</h1> :
+        <h1>Livros do usuário selecionado</h1>
+      }
         <div>
           {userBooks.map((book) => (
             <ResultComponent key={book._id}>

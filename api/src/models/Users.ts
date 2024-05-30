@@ -5,7 +5,7 @@ const UsersSchema = new mongoose.Schema({
     true,
     "Name is required"
   ]},
-  wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }]
+  wishlist: [{ type: String }]
 }, { versionKey: false });
 
 const Users = mongoose.model('User', UsersSchema);

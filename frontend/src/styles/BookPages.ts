@@ -107,3 +107,21 @@ export const SelectLabel = styled.p<{ isSelected: boolean }>`
     color: #ff971d;
   }
 `;
+/*
+
+export const BookButton = styled(Button)`
+  background-color: #fff;
+  color: #ff971d;
+  border: 2px solid #ff971d;
+
+  &.active {
+    background-color: #ff971d;
+    color: #fff;
+  }
+
+  &:hover {
+    background-color: #f5f6f8;
+    color: #ff971d;
+  }
+`;
+ */

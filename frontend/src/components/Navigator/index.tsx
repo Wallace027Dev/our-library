@@ -29,6 +29,7 @@ const Navigator: React.FC<{
         <div>
           <Link to='/'>Home</Link>
           <Link to='/users'>Usuários</Link>
+          <Link to='/new-books'>Novos livros</Link>
         </div>
       </Nav>
 

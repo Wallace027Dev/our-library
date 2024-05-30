@@ -61,7 +61,7 @@ class UserController {
   static async store (req: Request, res: Response, next: NextFunction) {
     try {
       const user = await req.body;
-      const existingUser = await Users.findOne({ title: user.title });
+      const existingUser = await Users.findOne({ name: user.name });
 
       if (existingUser) {
         return res.status(200).send({ message: "This user already exists" });
