@@ -13,7 +13,7 @@ const BooksSchema = new mongoose.Schema ({
   }],
   imagePath: {
     type: String,
-    required: [ true, 'An image file needs to be uploaded to the image path as "file"'],
+    required: [ true, 'An image file needs to be uploaded to the image path as "image"'],
   }
 }, { versionKey: false });
 

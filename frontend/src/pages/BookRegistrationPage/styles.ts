@@ -1,5 +1,22 @@
 import styled from "styled-components";
 
+const Container = styled.main`
+  aside {
+    margin-right: 60px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  section {
+    width: 100%;
+    background: #fff;
+    min-height: 30vh;
+    padding: 42px 85px;
+  }
+`;
+
 const Button = styled.button`
   background-color: #ff971d;
   color: #fff;
@@ -39,13 +56,23 @@ const Input = styled.input`
 `;
 
 const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+
   div {
-    margin-top: 8px;
+    width: 300px;
+  }
+
+  label {
+    margin: 16px 0 8px 0;
   }
 `;
 
-const Wishlist = styled.div`
+const LabelWithButton = styled.div`
   display: flex;
+  justify-content: start;
   align-items: center;
 
   button {
@@ -53,7 +80,7 @@ const Wishlist = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ff971d;
+    background: #ff971d;
     color: #fff;
     border: none;
     font-size: 16px;
@@ -64,4 +91,32 @@ const Wishlist = styled.div`
   }
 `;
 
-export { Button, Input, Form, Wishlist };
+const LabelWithInput = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  input {
+    margin-left: 12px;
+    border-radius: 4px;
+  }
+`;
+
+const CategoryButton = styled(Button)`
+  background-color: #fff;
+  color: #ff971d;
+  border: 2px solid #ff971d;
+
+  &.active {
+    background-color: #ff971d;
+    color: #fff;
+  }
+
+  &:hover {
+    background-color: #f5f6f8;
+    color: #ff971d;
+  }
+`;
+
+
+export { Container, Button, Input, Form, LabelWithButton, LabelWithInput, CategoryButton };

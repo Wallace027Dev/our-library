@@ -1,7 +1,7 @@
 interface IUsers {
-  _id: string,
+  _id?: string,
   name: string;
-  wishlist: string[]
+  wishlist?: string[]
 }
 
 export default IUsers;
