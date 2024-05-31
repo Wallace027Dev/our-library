@@ -9,7 +9,7 @@ import {
 import IUserBook from "../../interfaces/IUserBook";
 
 const UserPage = () => {
-  const [users, setUsers] = useState<IUser[]>([]);
+  const [users, setUsers] = useState<IUser[] | null>([]);
   const [userName, setUserName] = useState('');
   const [userBooks, setUserBooks] = useState<IUserBook[]>([]);
   const [selectedUser, setSelectedUser] = useState<string>('');
@@ -42,26 +42,26 @@ const UserPage = () => {
     <Container>
       <aside>
         <h1>Livros por usuário</h1>
-        {users.map((user) => (
+        {users ? users.map((user) => (
           <SelectLabel
             key={user._id}
             onClick={ () => {
-              setSelectedUser(user._id);
+              setSelectedUser(user._id || '');
               setUserName(user.name);
             }}
             isSelected={selectedUser === user._id}
           >
             {user.name}
           </SelectLabel>
-        ))}
+        )) : <h2>Nenhum usuário encontrado!</h2>}
       </aside>
       <section>
-      {selectedUser ?
-        <h1>Livros de {userName}</h1> :
-        <h1>Livros do usuário selecionado</h1>
-      }
+        {selectedUser ?
+          <h1>Livros de {userName}</h1> :
+          <h1>Livros do usuário selecionado</h1>
+        }
         <div>
-          {userBooks.map((book) => (
+          {selectedUser ? userBooks.map((book) => (
             <ResultComponent key={book._id}>
               <img src={`http://localhost:3001/uploads/${book.bookId.imagePath}`} alt={book.bookId.title} />
               <div>
@@ -74,7 +74,7 @@ const UserPage = () => {
                 </div>
               </div>
             </ResultComponent>
-          ))}
+          )) : <h2 style={{ marginLeft: 12, fontWeight: 400, color: '#FAC586' }}>Selecione um usuário!</h2>}
         </div>
       </section>
     </Container>

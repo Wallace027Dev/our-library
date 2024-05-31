@@ -45,7 +45,7 @@ const Home: React.FC<IHomeProp> = ({ search }) => {
       const titleMatch = normalizeString(book.title).includes(normalizedSearch);
 
       const categoryMatch = selectedCategory === 'Todos os gêneros' ||
-        book.categories.some(category => normalizeString(category.title) === normalizeString(selectedCategory));
+        book.categories?.some(category => normalizeString(category.title) === normalizeString(selectedCategory));
 
       return titleMatch && categoryMatch;
     });
@@ -75,7 +75,7 @@ const Home: React.FC<IHomeProp> = ({ search }) => {
               <div>
                 <h2>{book.title}</h2>
                 <h3>{book.author}</h3>
-                <p>{book.categories.map(category => category.title).join(', ')}</p>
+                <p>{book.categories?.map(category => category.title).join(', ')}</p>
               </div>
             </ResultComponent>
           ))}
